@@ -1,0 +1,5 @@
+[<%
+  var firstRecord = true;
+  pinstate.forEach(function(i) {
+  if (!firstRecord){ %>,<% }firstRecord=false; %>{ "pin": "<%= i.pin %>", "state": <%= i.state %> }
+<% }); %>]

@@ -1,0 +1,5 @@
+{
+  "enabled_pins": [<% var cnt = 0; enabledPins.forEach(function(i) { %>
+    <% if (cnt>0){ %>,<% } cnt++; %>{ "order": <%= cnt %>, "pin": "<%= i %>", "gpio": "<%= mapGpio.indexOf(i) %>" } <% }); %>
+  ]
+}
