@@ -36,28 +36,27 @@ node -v
 ```
 * SSL Certificates generated for Client-Authentication (CA, server, & client)
  > [This tutorial](http://www.gettingcirrius.com/2012/06/automating-creation-of-certificate.html) provides detailed steps on generating all of the required certificates (even if you don't follow the steps for automation).  Store the passwords you create for each key in a safe place!  For this application you will need to copy to your Raspberry Pi the following files:
- * ca.crt
- * server.crt
- * server.key
-
- >and you will need the following certificate for testing:
- * client.p12
+ > * ca.crt
+ > * server.crt
+ > * server.key 
+ >
+ > and you will need the following certificate for testing:
+ > * client.p12
 
 ### Install
+
+Create the following directory to hold your ssl certificates. Copy the 3 certificate files mentioned above (ca.crt, server.crt, server.key) to the newly created ssl directory.
+```sh
+mkdir ssl
+```
 
 Execute the following commands on the Raspberry Pi to install the agent.
 
 ```sh
 git clone https://github.com/eriepasquare/ctrl-my-pi-agent.git
+cd ctrl-my-pi-agent
 npm install
 ```
-
-Create the following directory to hold your ssl certificates
-```sh
-mkdir ssl
-```
-
-Copy the 3 certificate files mentioned above (ca.crt, server.crt, server.key) to the newly created ssl directory.
 
 ### <a name="configure"></a>Configure
 
