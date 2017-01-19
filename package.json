@@ -1,9 +1,13 @@
 {
   "name": "ctrl-my-pi-agent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Control My Raspberry Pi - Agent App (runs on pi).",
   "keywords": [
-    "nodejs", "raspberrypi","raspberry","rpi","rpi-gpio"
+    "nodejs",
+    "raspberrypi",
+    "raspberry",
+    "rpi",
+    "rpi-gpio"
   ],
   "author": {
     "name": "Tony Pasquarette",
@@ -16,8 +20,10 @@
     "url": "git://github.com/eriepasquare/ctrl-my-pi-agent.git"
   },
   "dependencies": {
-    "express": "^4.13.1",
     "ejs": "^2.3.3",
+    "express": "^4.13.1",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
     "morgan": "^1.6.1",
     "rpi-gpio": "^0.7.0"
   }

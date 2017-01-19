@@ -1,6 +1,8 @@
 
 var gpio = require('rpi-gpio');
 var express = require('express');
+var fs = require('fs');
+var https = require('https');
 
 // ********* THE BELOW VARIABLES REQUIRE UPDATING FOR YOUR PERSONAL USE CASE
 
@@ -9,6 +11,19 @@ var express = require('express');
 // the REST API where the array index number is used to determine odd or even.
 // NOTE: the array needs to contain pin numbers... NOT BCM/GPIO numbers.
 var enabledPins = [18,3,22,16,29,15,31,13,32,11,33,7,36,12,37,5];
+
+// configure your own certificate authority and private key
+var ssl_opts = {
+  // Server SSL private key and certificate (from environment variables)
+  key: fs.readFileSync(process.env.SSL_SERVER_KEY),
+  passphrase: process.env.SSL_SERVER_KEY_PP,
+  cert: fs.readFileSync(process.env.SSL_SERVER_CERT),
+  // issuer/CA certificate against which the client certificate will be validated.
+  ca: fs.readFileSync(process.env.SSL_CA_CERT),
+  // request and require a certificate
+  requestCert: true,
+  rejectUnauthorized: true
+};
 
 // ********* THE ABOVE VARIABLES REQUIRE UPDATING FOR YOUR PERSONAL USE CASE
 
@@ -23,6 +38,14 @@ app.set('view engine', 'ejs');
 
 // Use application-level middleware for common functionality
 app.use(require('morgan')('combined'));
+
+app.use(function(req, res, next) {
+  if (!req.client.authorized) {
+    var err = new Error('Access Denied');
+    err.status = 401;
+    next(err);  }
+  next();
+});
 
 //******************************************************************************
 // parameter middleware that will run before the next routes
@@ -68,7 +91,7 @@ app.get('/agent/config', function(req, res){
 
 });
 
-app.get('/:mode/:id/:action', function(req, res){
+app.get('/agent/:mode/:id/:action', function(req, res){
   res.setHeader('Content-Type', 'application/json');
   mode   = req.params.mode;
   id     = req.params.id;
@@ -254,5 +277,6 @@ process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
 
 
 // start the app/agent
-app.listen(port);
+https.createServer(ssl_opts, app).listen(port);
+
 console.log("Listening on port: "+port);
