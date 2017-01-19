@@ -35,13 +35,13 @@ sudo apt install nodejs
 node -v
 ```
 * SSL Certificates generated for Client-Authentication (CA, server, & client)
- > [This tutorial](http://www.gettingcirrius.com/2012/06/automating-creation-of-certificate.html) provides detailed steps on generating all of the required certificates (even if you don't follow the steps for automation).  Store the passwords you create for each key in a safe place!  For this application you will need to copy to your Raspberry Pi the following files:
- > * ca.crt
- > * server.crt
- > * server.key 
- >
- > and you will need the following certificate for testing:
- > * client.p12
+ [This tutorial](http://www.gettingcirrius.com/2012/06/automating-creation-of-certificate.html) provides detailed steps on generating all of the required certificates (even if you don't follow the steps for automation).  Store the passwords you create for each key in a safe place!  For this application you will need to copy to your Raspberry Pi the following files:
+  * ca.crt
+  * server.crt
+  * server.key
+
+ and you will need the following certificate for testing:
+  * client.p12
 
 ### Install
 
